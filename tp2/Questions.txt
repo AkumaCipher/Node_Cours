@@ -1,0 +1,5 @@
+Question°4 : 
+Cela permet de ne pas modifier le code partout et plutôt de 
+modifier les valeurs directement qui sont utilisés partout.
+
+Question°5 :
