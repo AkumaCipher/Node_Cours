@@ -27,6 +27,14 @@ app.get('/redirectMe', (req, res) => {
   res.redirect('https://www.iut-littoral.fr');
 })
 
+app.get('/users/:name', (req, res) => {
+  res.send('Bienvenue sur la page de '+req.params.name);
+})
+
+app.get('/somme', (req, res) => {
+  res.send('Somme = '+(parseInt(req.query.a)+parseInt(req.query.b)));
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 })
