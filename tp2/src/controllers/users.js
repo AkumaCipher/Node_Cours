@@ -25,7 +25,7 @@ async function findUser(req, res, next) {
 async function findUsers(req, res, next) {
   try {
     console.log("Finding ....");
-    const result = await findMany("tp2", {age: { $lt : 20}});
+    const result = await findMany("tp2", {age: { $lt : 21}});
     return res.send(result);
   } catch (e) {
     console.log(e);

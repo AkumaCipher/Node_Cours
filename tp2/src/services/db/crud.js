@@ -22,11 +22,7 @@ async function findMany(collectionName, query, options = {projection: {_id:0}}) 
 
     const result = [];
 
-    console.log(cursor);
-
     await cursor.forEach((item) => result.push(item));
-    
-    console.log(result);
 
     return result;
   } catch (e) {
