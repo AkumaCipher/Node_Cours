@@ -1,4 +1,3 @@
-const { express } = require("express");
 const express = require("express");
 const error = require("./error.json");
 const app = express();
@@ -17,7 +16,7 @@ var list = {
     "/img": 0,
     "/somme": 0,
     "/users": 0,
-    "/metrics":0,
+    "/metrics": 0,
   },
   uptime: uptime,
 };
@@ -30,15 +29,15 @@ app.use("/", function (req, res, next) {
 });
 
 app.use("/", function (req, res, next) {
-  var requests = req.url.split('/');
+  var requests = req.url.split("/");
   var request = `/${requests[1]}`;
-  var au_cas_ou = request.split('?');
+  var au_cas_ou = request.split("?");
 
-  if (au_cas_ou[0]=="somme"){
+  if (au_cas_ou[0] == "somme") {
     request = `/${au_cas_ou[0]}`;
   }
 
-  list['requestsCount'][request]++;
+  list["requestsCount"][request]++;
 
   next();
 });
@@ -77,7 +76,7 @@ app.get("/somme", (req, res) => {
   res.send("Somme = " + (parseInt(req.query.a) + parseInt(req.query.b)));
 });
 
-app.get("/metrics", (req,res) =>{
+app.get("/metrics", (req, res) => {
   res.json(list);
 });
 
