@@ -3,8 +3,8 @@ const error = require("./error.json");
 const app = express();
 const port = 4000;
 
-var uptime = Math.round(process.uptime());
-var list = {
+const uptime = Math.round(process.uptime());
+const list = {
   status: "healthy",
   requestsCount: {
     "/": 0,
@@ -22,18 +22,18 @@ var list = {
 };
 
 app.use("/", function (req, res, next) {
-  var date = new Date().toISOString();
-  var url = req.url;
+  const date = new Date().toISOString();
+  const url = req.url;
   console.log(`[${date}] : ${url}`);
   next();
 });
 
 app.use("/", function (req, res, next) {
-  var requests = req.url.split("/");
-  var request = `/${requests[1]}`;
-  var au_cas_ou = request.split("?");
+  const requests = req.url.split("/");
+  let request = `/${requests[1]}`;
+  const au_cas_ou = request.split("?");
 
-  if (au_cas_ou[0] == "somme") {
+  if (au_cas_ou[0] === "somme") {
     request = `/${au_cas_ou[0]}`;
   }
 

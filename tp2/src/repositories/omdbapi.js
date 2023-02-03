@@ -1,9 +1,12 @@
-var axios = require("axios").default;
+const axios = require("axios").default;
+const conf = require("../../conf.json")
+// Utilisation de la clé api
+const apikey = conf.apikey
 
-var options = {
+const options = {
   method: "GET",
   url: "http://www.omdbapi.com/",
-  params: { s: "The 100", apikey: "43a891a3" },
+  params: {s: "The 100", apikey: apikey},
 };
 
 axios
