@@ -8,9 +8,9 @@ router.get("/find", findUser);
 
 router.get("/findUsers", findUsers)
 
-router.get("/insert", insertUser);
+router.post("/create", insertUser);
 
-router.get("/insertMultiple", insertUsers);
+router.post("/insertMultiple", insertUsers);
 
 router.get("/update", updateUser);
 

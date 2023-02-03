@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const {MongoClient} = require("mongodb");
 const conf = require("../../../conf.json");
 // Connection URL
 const url = conf.tp2.databaseUrl;
@@ -14,7 +14,7 @@ async function connectTodB() {
         await client.connect();
 
         // Establish and verify connection
-        await client.db("admin").command({ ping: 1 });
+        await client.db("admin").command({ping: 1});
         console.log("Connected successfully to server");
     } catch (e) {
         // Ensures that the client will close when you finish/error

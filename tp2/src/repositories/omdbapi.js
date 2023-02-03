@@ -3,17 +3,28 @@ const conf = require("../../conf.json")
 // Utilisation de la clé api
 const apikey = conf.apikey
 
-const options = {
-  method: "GET",
-  url: "http://www.omdbapi.com/",
-  params: {s: "The 100", apikey: apikey},
-};
+async function getMovieByTitle(title) {
+    const options = {
+        method: "GET",
+        url: "http://www.omdbapi.com/",
+        params: {t: title, apikey: apikey},
+    };
 
-axios
-  .request(options)
-  .then(function (response) {
-    console.log(response.data);
-  })
-  .catch(function (error) {
-    console.error(error);
-  });
+    try {
+        const result = await axios.request(options);
+        return result.data;
+    }
+    catch (e){
+        console.error(e);
+    }
+        /*.then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            console.error(error);
+        });*/
+}
+
+module.exports = {
+    getMovieByTitle,
+}

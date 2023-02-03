@@ -1,11 +1,7 @@
-const {
-    findOne,
-    insertOne,
-    insertMany,
-    updateOne,
-    findMany,
-} = require("../services/db/crud");
 const {getCollection} = require("../services/db/connection");
+const {
+    findOne, insertOneUser, insertManyUsers, updateOne, findMany,
+} = require("../services/db/crud");
 
 function createUser(req, res, next) {
     console.log("creation ....");
@@ -35,13 +31,7 @@ async function findUsers(req, res, next) {
 async function insertUser(req, res, next) {
     try {
         console.log("Inserting ....");
-        const tp2 = getCollection("tp2");
-        const doc = {
-            name: "Maewenn",
-            age: 13,
-            lastName: "Massias",
-        };
-        const result = await tp2.insertOne(doc);
+        const result = await insertOneUser("users",req.body);
         return res.send(result);
     } catch (e) {
         console.log(e);

@@ -33,7 +33,7 @@ async function findMany(collectionName, query, options = {projection: {_id: 0}})
     }
 }
 
-async function insertOne(collectionName, query, options = {}) {
+async function insertOneUser(collectionName, query, options = {}) {
     try {
         const collection = getCollection(collectionName);
         return await collection.insertOne(query, options);
@@ -46,7 +46,7 @@ async function insertOne(collectionName, query, options = {}) {
     }
 }
 
-async function insertMany(collectionName, documents, options = {}) {
+async function insertManyUsers(collectionName, documents, options = {}) {
     try {
         const collection = getCollection(collectionName);
         return await collection.insertMany(documents);
@@ -75,7 +75,7 @@ async function updateOne(collectionName, filter, document, options = {upsert: fa
 module.exports = {
     findOne,
     findMany,
-    insertOne,
-    insertMany,
+    insertOneUser,
+    insertManyUsers,
     updateOne,
 };
