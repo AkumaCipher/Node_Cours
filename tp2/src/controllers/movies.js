@@ -35,6 +35,59 @@ async function insertMovie(req, res, next) {
     }
 }
 
+async function createWatchlist(req, res, next) {
+    try {
+        let user = await findOne("users", { name: req.query.n });
+        let verifUser = await findOne("watchlists", { 'User.name': user.name });
+        console.log(verifUser);
+        if (verifUser) {
+            let verifWatchlist = await findOne("watchlists", { Watchlists: req.query.w })
+            if (verifWatchlist) {
+                res.status(409).send(`Erreur : L'utilisateur ${user.name} à déjà une watchlist appelé ${req.query.w}`);
+            }
+            else {
+                let filter = {
+                    User: user
+                };
+
+                let update = {
+                    $push: {
+                        Watchlists: {
+                            [req.query.w]: []
+                        }
+                    }
+                };
+
+                let insert = await updateOne("watchlists", filter, update);
+                return res.send(insert);
+            }
+        }
+        else {
+            let result = {
+                "User": user,
+                "Watchlists": [{
+                    [req.query.w]: []
+                }]
+            }
+            const insert = await insertOneUser("watchlists", result);
+            return res.send(insert);
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+async function addMovieInWatchlist(req, res, next){
+    try {
+
+    }
+    catch (e){
+        console.log(e);
+    }
+}
+
 module.exports = {
     insertMovie,
+    createWatchlist
 };
