@@ -30,6 +30,7 @@ async function findUsers(req, res, next) {
 
 async function insertUser(req, res, next) {
     try {
+        let verif = await findUser()
         console.log("Inserting ....");
         const result = await insertOneUser("users",req.body);
         return res.send(result);
