@@ -80,7 +80,18 @@ async function createWatchlist(req, res, next) {
 
 async function addMovieInWatchlist(req, res, next){
     try {
-
+        let movie = await findOne("movies",{Title: req.query.n});
+        console.log(movie);
+        let filter = {
+            User: req.query.u,
+            Watchlists: {[req.query.w]:[]}
+        }
+        let update = {
+            $push:
+            movie
+        }
+        const insert = await updateOne("watchlists", filter, update, {upsert:true})
+        return res.send(insert);
     }
     catch (e){
         console.log(e);
@@ -89,5 +100,6 @@ async function addMovieInWatchlist(req, res, next){
 
 module.exports = {
     insertMovie,
-    createWatchlist
+    createWatchlist,
+    addMovieInWatchlist
 };
