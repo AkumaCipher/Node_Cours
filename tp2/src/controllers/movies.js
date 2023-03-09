@@ -43,9 +43,7 @@ async function createWatchlist(req, res, next) {
     let verifUser = await findOne("watchlists", { "User.name": user.name });
     console.log(verifUser);
     if (verifUser) {
-      let verifWatchlist = await findOne("watchlists", {
-        Watchlists: req.query.w,
-      });
+      let verifWatchlist = await findOne("watchlists", {[req.query.w]:[]});
       if (verifWatchlist) {
         res
           .status(409)
