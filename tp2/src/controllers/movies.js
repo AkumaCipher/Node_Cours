@@ -40,10 +40,12 @@ async function insertMovie(req, res, next) {
 async function createWatchlist(req, res, next) {
   try {
     let user = await findOne("users", { name: req.query.n });
+
     let verifUser = await findOne("watchlists", { "User.name": user.name });
-    console.log(verifUser);
+
     if (verifUser) {
-      let verifWatchlist = await findOne("watchlists", {[req.query.w]:[]});
+      let verifWatchlist = await findOne("watchlists", { [req.query.w]: [] });
+
       if (verifWatchlist) {
         res
           .status(409)
@@ -66,6 +68,7 @@ async function createWatchlist(req, res, next) {
       }
     } else {
       let result = {
+        Name: `La watchlist de ${req.query.n}`,
         User: user,
         [req.query.w]: [],
       };
@@ -79,18 +82,21 @@ async function createWatchlist(req, res, next) {
 
 async function addMovieInWatchlist(req, res, next) {
   try {
-    let movie = await findOne("movies", { Title: req.query.n });
-    console.log(movie);
-    let filter = {
-      User: req.query.u,
-      Watchlists: { [req.query.w]: [] },
+    /* n is for the name of the film, u is the user's name */
+    let film = await findOne("movies", { Title: req.query.n });
+    let watchlist = await findOne("watchlists", { "User.name": req.query.u });
+    let movie = {
+      Title: film.Title,
+      Runtime: film.Runtime,
+      Genre: film.Genre,
+      Statut: "A voir",
     };
-    let update = {
-      $push: movie,
-    };
-    const insert = await updateOne("watchlists", filter, update, {
-      upsert: true,
-    });
+    watchlist.Movies.push(movie);
+    const insert = await updateOne(
+      "watchlists",
+      { "User.name": req.query.u },
+      { $set: { Movies: watchlist.Movies } }
+    );
     return res.send(insert);
   } catch (e) {
     console.log(e);
